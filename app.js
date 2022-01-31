@@ -83,12 +83,4 @@ const game = {
   // - The list of previous guesses can be generated using the array `join` method.
 };
 
-// ## Bonus
-
-// - If the player enters a number greater than the `secretNum` make it the new `biggestNum`, so that the player can't enter a number greater than it. If the player enters a number that is less than the `secretNum` make it the new `smallestNum`, so that the player can't enter a number less than it. Hint: You may want to add a helper function to accomplish this.
-
-// ## More Bonus
-
-// When `play` is run, immediately prompt the player to enter the smallest and biggest numbers instead of pre-setting values.
-
 game.play();
