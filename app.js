@@ -17,7 +17,15 @@ const game = {
 
   play: function() {
     this.secretNum = Math.floor(Math.random() * 
-      (this.biggestNum - this.smallestNum + 1)) + this.smallestNum
+      (this.biggestNum - this.smallestNum + 1)) + this.smallestNum;
+
+    // 4. invoke getGuess from inside a loop, and add the new guess to the prevGusses array 
+    do {
+      this.prevGuess.push(this.getGuess());
+    } 
+    // while guess is not the secret number;
+    while (this.prevGuesses[this.prevGuess.length - 1]!== this.secretNum);
+  
   },
 
   // 2. Add a `getGuess` method to `game` that prompts the player to enter a guess with a message formatted as: "Enter a guess between [smallestNum] and [biggestNum]."
@@ -26,8 +34,6 @@ const game = {
  * Is between `smallestNum` and `biggestNum`, inclusive.
  * parseInt` returns `NaN` if the string cannot be parsed into a number.
 */
-
-
 
   getGuess: function() {
     
@@ -50,8 +56,31 @@ const game = {
 
     return guess;
   },
+
+  // 5. Add a `render` method to `game` that `play` will call after a guess has been made that alerts:
+
+  render: function() {
+
+  // - If the secretNum is the same as guess: `Congrats! You guessed the number in [number of prevGuesses]!`
+    let promptMsg = null;
+
+    if (this.prevGuess[this.prevGuesses.length -1] === this.secretNum && this.prevGuesses.length <= 1) {
+      promptMsg = `Congrats! You guessed the number in ${this.prevGuesses.length} of guess!` // if number of the guess is singular
+    } else if (this.prevGuess[this.prevGuesses.length -1] === this.secretNum && this.prevGuesses.length > 1) {
+      promptMsg = `Congrats! You guessed the number in ${this.prevGuesses.length} of guesses!` // if number of the guess is plural
+    } else { 
+      // - Otherwise: `Your guess is too [high|low] Previous guesses: x, x, x, x`
+        // - Template literals not only have interpolation, but they also honor whitespace - including line breaks!
+      promptMsg = `Your guess is too ${this.prevGuess[this.prevGuesses.length -1] > this.secretNum? 'high' : 'low'}\n Previous guesses: ${this.prevGuesses.join(', ')}`;
+    }
+  
+  // prompt an alert message box
+  alert(promptMsg);
+  }
+  //     - The list of previous guesses can be generated using the array `join` method.
+
 }
 
-game.getGuess()
+game.play()
 
 
